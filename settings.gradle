@@ -1,1 +1,108 @@
-include ':app'
+
+println('setting.gradle开始执行')
+
+
+
+gradle.addBuildListener(new BuildListener() {
+    @Override
+    void buildStarted(Gradle gradle) {
+        println('All -> buildStarted...')
+    }
+
+    @Override
+    void settingsEvaluated(Settings settings) {
+        println('All -> settingsEvaluated...')
+    }
+
+    @Override
+    void projectsLoaded(Gradle gradle) {
+        println('All -> projectsLoaded...')
+    }
+
+    @Override
+    void projectsEvaluated(Gradle gradle) {
+        println('All -> projectsEvaluated...')
+    }
+
+    @Override
+    void buildFinished(BuildResult result) {
+        println('All -> buildFinished...')
+    }
+})
+
+
+gradle.buildStarted {
+
+}
+
+gradle.buildFinished {
+
+}
+
+gradle.settingsEvaluated {
+
+}
+
+gradle.projectsEvaluated {
+
+}
+
+gradle.projectsLoaded {
+
+}
+
+gradle.addProjectEvaluationListener(new ProjectEvaluationListener() {
+    @Override
+    void beforeEvaluate(Project project) {
+        println("${project.name} ... beforeEvaluate")
+    }
+
+    @Override
+    void afterEvaluate(Project project, ProjectState state) {
+        println("${project.name} ... afterEvaluate")
+    }
+})
+
+gradle.beforeProject {
+
+}
+
+gradle.afterProject {
+
+}
+
+
+gradle.taskGraph.addTaskExecutionGraphListener(new TaskExecutionGraphListener() {
+    @Override
+    void graphPopulated(TaskExecutionGraph graph) {
+
+    }
+})
+
+gradle.taskGraph.addTaskExecutionListener(new TaskExecutionListener() {
+    @Override
+    void beforeExecute(Task task) {
+        println("${task.name} 开始执行===========")
+    }
+
+    @Override
+    void afterExecute(Task task, TaskState state) {
+        println("${task.name} 结束执行===========")
+    }
+})
+
+gradle.taskGraph.beforeTask {
+
+}
+
+gradle.taskGraph.afterTask {
+
+}
+
+gradle.taskGraph.whenReady{
+
+}
+
+include ':app', ':module1', ':testplugin'
+
+println('setting.gradle执行完毕')

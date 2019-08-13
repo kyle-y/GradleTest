@@ -1,8 +1,21 @@
+println('app开始配置')
+
+apply from: rootProject.file('test2.gradle')
+
 apply plugin: 'com.android.application'
+
+apply plugin: 'testPlugin'
+
+apply from: rootProject.file('test1.gradle')
 
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
+
+
+testParam {
+    name = "hahaha"
+}
 
 android {
     compileSdkVersion 28
@@ -23,12 +36,32 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
     implementation 'androidx.core:core-ktx:1.1.0-alpha04'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+    implementation project(':module1')
 }
+
+task app1 {
+    println('app1的task配置')
+    doFirst {
+        println('app1 doFirst开始执行')
+    }
+    doLast {
+        println('app1 doLast开始执行')
+    }
+}
+
+
+
+task app2 << {
+    println('app2开始执行')
+}
+
+
+println('app结束配置')
