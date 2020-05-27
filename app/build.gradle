@@ -59,9 +59,9 @@ task app1 {
 
 
 
-task app2 << {
-    println('app2开始执行')
-}
+//task app2 << {
+//    println('app2开始执行')
+//}
 
 
 println('app结束配置')
